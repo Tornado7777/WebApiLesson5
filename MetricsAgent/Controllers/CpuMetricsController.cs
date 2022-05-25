@@ -46,10 +46,6 @@ namespace MetricsAgent.Controllers
 
         
 
-        // TODO: Домашняя работа
-        // 2. Настройте AutoMapper для остальных объектов в приложениях: преобразование из DTO в
-        // модели базы и обратно.
-
         [HttpGet("all")]
         public IActionResult GetAll()
         {
