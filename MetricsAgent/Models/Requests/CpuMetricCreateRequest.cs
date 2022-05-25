@@ -6,6 +6,5 @@ namespace MetricsAgent.Models.Requests
     {
         public TimeSpan Time { get; set; }
         public int Value { get; set; }
-
     }
 }

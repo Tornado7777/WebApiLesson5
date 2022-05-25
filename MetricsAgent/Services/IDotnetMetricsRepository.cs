@@ -2,6 +2,7 @@
 
 namespace MetricsAgent.Services
 {
-    public interface IDotnetMetricsRepository : IRepository<DotnetMetric> { }
-
+    public interface IDotNetMetricsRepository : IRepository<DotNetMetric>
+    {
+    }
 }
