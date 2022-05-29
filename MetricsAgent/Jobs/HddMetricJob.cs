@@ -22,7 +22,7 @@ namespace MetricsAgent.Jobs
         {
             //Debug.WriteLine($"{DateTime.Now} > HddMetricJob");
 
-            // Получаем значение занятости CPU
+
             float hddUsageInPercents = _hddCounter.NextValue();
             // Узнаем, когда мы сняли значение метрики
             var time = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds());

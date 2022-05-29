@@ -22,7 +22,7 @@ namespace MetricsAgent.Jobs
         {
             //Debug.WriteLine($"{DateTime.Now} > RamMetricJob");
 
-            // Получаем значение занятости CPU
+            // Получаем значение занятости Ram
             float ramUsageInPercents = _ramCounter.NextValue();
             // Узнаем, когда мы сняли значение метрики
             var time = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds());

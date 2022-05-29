@@ -24,9 +24,8 @@ namespace MetricsAgent.Jobs
         {
             //Debug.WriteLine($"{DateTime.Now} > DotNetMetricJob");
 
-            // Получаем значение занятости CPU
             //float dotNetUsageInPercents = _dotNetCounter.NextValue();
-            long dotNetUsageInPercents = GC.GetTotalAllocatedBytes();  //float dotNetUsageInPercents = _dotNetCounter.NextValue();
+            long dotNetUsageInPercents = GC.GetTotalAllocatedBytes(); 
             // Узнаем, когда мы сняли значение метрики
             var time = TimeSpan.FromSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
             // Теперь можно записать что-то посредством репозитория
