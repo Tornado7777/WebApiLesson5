@@ -20,10 +20,10 @@ using MetricsAgent.Models;
 using MetricsAgent.Services.Impl;
 using AutoMapper;
 using FluentMigrator.Runner;
-using Quartz.Spi;
 using MetricsAgent.Jobs;
 using Quartz;
 using Quartz.Impl;
+using Quartz.Spi;
 
 namespace MetricsAgent
 {
@@ -56,6 +56,23 @@ namespace MetricsAgent
             services.AddSingleton(new JobSchedule(
                 typeof(CpuMetricJob),
                 "0/5 * * ? * * *"));
+            services.AddSingleton<DotNetMetricJob>();
+            services.AddSingleton(new JobSchedule(
+                typeof(DotNetMetricJob),
+                "1/5 * * ? * * *"));
+            services.AddSingleton<HddMetricJob>();
+            services.AddSingleton(new JobSchedule(
+               typeof(HddMetricJob),
+               "2/5 * * ? * * *"));
+            services.AddSingleton<NetworkMetricJob>();
+            services.AddSingleton(new JobSchedule(
+               typeof(NetworkMetricJob),
+               "2/5 * * ? * * *"));
+            services.AddSingleton<RamMetricJob>();
+            services.AddSingleton(new JobSchedule(
+               typeof(RamMetricJob),
+               "2/5 * * ? * * *"));
+
 
             services.AddHostedService<QuartzHostedService>();
 
@@ -77,25 +94,25 @@ namespace MetricsAgent
                     Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
                 });
 
-            services.AddScoped<IDotNetMetricsRepository, DotNetMetricsRepository>()
+            services.AddSingleton<IDotNetMetricsRepository, DotNetMetricsRepository>()
                .Configure<DatabaseOptions>(options =>
                {
                    Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
                });
 
-            services.AddScoped<IHddMetricsRepository, HddMetricsRepository>()
+            services.AddSingleton<IHddMetricsRepository, HddMetricsRepository>()
               .Configure<DatabaseOptions>(options =>
               {
                   Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
               });
 
-            services.AddScoped<INetworkMetricsRepository, NetworkMetricsRepository>()
+            services.AddSingleton<INetworkMetricsRepository, NetworkMetricsRepository>()
               .Configure<DatabaseOptions>(options =>
               {
                   Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
               });
 
-            services.AddScoped<IRamMetricsRepository, RamMetricsRepository>()
+            services.AddSingleton<IRamMetricsRepository, RamMetricsRepository>()
               .Configure<DatabaseOptions>(options =>
               {
                   Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
