@@ -30,7 +30,7 @@ namespace MetricsAgent.Services.Impl
             DatabaseOptions databaseOptions = _databaseOptions.Value;
             using var connection = new SQLiteConnection(databaseOptions.ConnectionString);
             // Запрос на добавление данных с плейсхолдерами для параметров
-            connection.Execute("INSERT INTO dotNetmetrics(value, time) VALUES(@value, @time)",
+            connection.Execute("INSERT INTO dotnetmetrics(value, time) VALUES(@value, @time)",
             // Анонимный объект с параметрами запроса
             new
             {

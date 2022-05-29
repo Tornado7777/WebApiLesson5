@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "TimeSpanSample": {
+      "commandName": "Project",
+      "workingDirectory": ".\\",
+      "remoteDebugEnabled": false,
+      "authenticationMode": "None",
+      "nativeDebugging": false
+    }
+  }
+}
