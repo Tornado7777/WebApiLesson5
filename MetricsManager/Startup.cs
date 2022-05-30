@@ -1,6 +1,9 @@
 using FluentMigrator.Runner;
 using MetricsManager.Controllers;
+using MetricsManager.Converters;
 using MetricsManager.Models;
+using MetricsManager.Services;
+using MetricsManager.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,15 +43,30 @@ namespace MetricsManager
                 .AddLogging(lb => lb
                 .AddFluentMigratorConsole());
 
+            services.AddHttpClient(); // IHttpClientFactory
 
-            services.AddSingleton<AgentPool>();
-            services.AddSingleton<AgentsController>()
+            services.AddHttpClient<IMetricsAgentClient,
+                MetricsAgentClient>().AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(retryCount: 3,
+                sleepDurationProvider: (attemptCount) => TimeSpan.FromMilliseconds(2000),
+                onRetry: (exception, sleepDuration, attemptNumber, context) =>
+                {
+
+
+                }));
+
+
+
+            services.AddSingleton<AgentPool>()
                 .Configure<DatabaseOptions>(options =>
                 {
                     Configuration.GetSection("Settings:DatabaseOptions").Bind(options);
-                }); 
+                });
+            services.AddSingleton<AgentsController>(); 
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter()));
+
 
 
             services.AddSwaggerGen(c =>
