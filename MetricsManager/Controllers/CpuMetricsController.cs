@@ -53,7 +53,7 @@ namespace MetricsManager.Controllers
             //AgentInfo agentInfo = new AgentInfo();
             //agentInfo.AgentAddress = new Uri("https://localhost:44339/");
             //agentInfo.AgentId = 1;
-            agentInfo.Enable = true;
+            //agentInfo.Enable = true;
 
 
             string requestQuery =

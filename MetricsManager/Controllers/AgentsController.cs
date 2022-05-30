@@ -1,12 +1,6 @@
-﻿using Dapper;
-using MetricsManager.Models;
-using Microsoft.AspNetCore.Http;
+﻿using MetricsManager.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
+
 
 namespace MetricsManager.Controllers
 {

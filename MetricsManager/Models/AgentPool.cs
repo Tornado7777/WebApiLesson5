@@ -17,9 +17,9 @@ namespace MetricsManager.Models
             using var connection = new SQLiteConnection(_databaseOptions.Value.ConnectionString);
             List<AgentInfo> metricsAgents = connection.Query<AgentInfo>("SELECT * FROM metricsagents").ToList();
             _values = new Dictionary<int, AgentInfo>();
-            foreach (AgentInfo agent in metricsAgents)
+            foreach (AgentInfo agentInfo in metricsAgents)
             {
-                Add(agent);
+                _values.Add(agentInfo.AgentId, agentInfo);
             }
         }
 
