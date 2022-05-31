@@ -1,7 +1,6 @@
 ﻿using MetricsManager.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+
 
 namespace MetricsManager.Controllers
 {
@@ -10,10 +9,12 @@ namespace MetricsManager.Controllers
     public class AgentsController : ControllerBase
     {
 
+
         private AgentPool _agentPool;
 
         public AgentsController(AgentPool agentPool)
         {
+
             _agentPool = agentPool;
         }
 
@@ -30,15 +31,13 @@ namespace MetricsManager.Controllers
         [HttpPut("enable/{agentId}")]
         public IActionResult EnableAgentById([FromRoute] int agentId)
         {
-            if (_agentPool.Values.ContainsKey(agentId))
-                _agentPool.Values[agentId].Enable = true;
+            _agentPool.EnableAgentById(agentId);
             return Ok();
         }
         [HttpPut("disable/{agentId}")]
         public IActionResult DisableAgentById([FromRoute] int agentId)
         {
-            if (_agentPool.Values.ContainsKey(agentId))
-                _agentPool.Values[agentId].Enable = false;
+            _agentPool.DisableAgentById(agentId);
             return Ok();
         }
 
