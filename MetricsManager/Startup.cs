@@ -34,6 +34,7 @@ namespace MetricsManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            TimeSpan timeStart = TimeSpan.FromMilliseconds(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
             services.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                 // Добавляем поддержку SQLite
@@ -77,7 +78,7 @@ namespace MetricsManager
                 c.MapType<TimeSpan>(() => new OpenApiSchema
                 {
                     Type = "string",
-                    Example = new OpenApiString("00:00:00")
+                    Example = new OpenApiString(timeStart.ToString("dd\\.hh\\:mm\\:ss"))
                 });
             });
         }
